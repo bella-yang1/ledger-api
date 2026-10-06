@@ -7,6 +7,13 @@ load_dotenv()
 
 DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./ledger.db")
 
+# PostgreSQL + psycopg 3 사용
+if DATABASE_URL.startswith("postgresql://"):
+    DATABASE_URL = DATABASE_URL.replace(
+        "postgresql://",
+        "postgresql+psycopg://",
+        1
+    )
 kwargs = {"echo": True}
 
 if DATABASE_URL.startswith("sqlite"):
